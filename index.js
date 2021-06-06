@@ -1,12 +1,27 @@
 let $start = document.querySelector('#start')
 let $game = document.querySelector('#game')
+let $time = document.querySelector('#time')
 let score = 0;
+let isGameStarted = false
+
+
 $start.addEventListener('click', startGame)
 $game.addEventListener('click', hendleBoxClick)
+
+
 function startGame() {
   $start.classList.add('hide')
   $game.style.backgroundColor = '#fff'
-
+  isGameStarted = true
+  let interval = setInterval(() => {
+    let time = parseFloat($time.textContent)
+    if (time <= 0) {
+      clearInterval(interval)
+      endGame()
+    } else {
+      $time.textContent = (time - 0.1).toFixed(1)
+    }
+  }, 100)
 
   renderBox()
 }
@@ -33,6 +48,9 @@ function renderBox() {
 
 function hendleBoxClick(event) {
   if (event.target.dataset.box) {
+    if (!isGameStarted) {
+      return
+    }
     renderBox()
     score++
   }
@@ -40,4 +58,8 @@ function hendleBoxClick(event) {
 
 function getRander(min, max) {
   return Math.floor(Math.random() * (max - min) + min)
+}
+
+function endGame() {
+  isGameStarted = false
 }
