@@ -13,14 +13,21 @@ $start.addEventListener('click', startGame)
 $game.addEventListener('click', hendleBoxClick)
 $gameTime.addEventListener('input', setTimeGame)
 
+function show($el) {
+  $el.classList.remove('hide')
+}
+
+function hide($el) {
+  $el.classList.add('hide')
+}
+
 
 function startGame() {
   score = 0
   setTimeGame()
   $gameTime.setAttribute('disabled', 'true')
-  $timeHeader.classList.remove('hide')
-  $resultHeader.classList.add('hide')
-  $start.classList.add('hide')
+ 
+  hide($start)
   $game.style.backgroundColor = '#fff'
   isGameStarted = true
   let interval = setInterval(() => {
@@ -43,6 +50,8 @@ function setGameScore() {
 function setTimeGame() {
   let time = +$gameTime.value
   $time.textContent = time.toFixed(1)
+  show($timeHeader)
+  hide($resultHeader)
 }
 
 function renderBox() {
@@ -80,11 +89,11 @@ function getRander(min, max) {
 
 function endGame() {
   isGameStarted = false
-  $start.classList.remove('hide')
+  show($start)
   $game.innerHTML = ''
   $game.style.backgroundColor = '#ccc'
-  $timeHeader.classList.add('hide')
-  $resultHeader.classList.remove('hide')
+  hide($timeHeader)
+  show($resultHeader)
   setGameScore()
   $gameTime.removeAttribute('disabled')
 }
