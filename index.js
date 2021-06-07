@@ -1,15 +1,25 @@
 let $start = document.querySelector('#start')
 let $game = document.querySelector('#game')
 let $time = document.querySelector('#time')
+let $result = document.querySelector('#result')
+let $gameTime = document.querySelector('#game-time')
 let score = 0;
 let isGameStarted = false
+let $timeHeader = document.querySelector('#time-header')
+let $resultHeader = document.querySelector('#result-header')
 
 
 $start.addEventListener('click', startGame)
 $game.addEventListener('click', hendleBoxClick)
+$gameTime.addEventListener('input', setTimeGame)
 
 
 function startGame() {
+  score = 0
+  setTimeGame()
+  $gameTime.setAttribute('disabled', 'true')
+  $timeHeader.classList.remove('hide')
+  $resultHeader.classList.add('hide')
   $start.classList.add('hide')
   $game.style.backgroundColor = '#fff'
   isGameStarted = true
@@ -26,6 +36,14 @@ function startGame() {
   renderBox()
 }
 
+function setGameScore() {
+  $result.textContent = score.toString()
+}
+
+function setTimeGame() {
+  let time = +$gameTime.value
+  $time.textContent = time.toFixed(1)
+}
 
 function renderBox() {
   $game.innerHTML = ''
@@ -62,4 +80,11 @@ function getRander(min, max) {
 
 function endGame() {
   isGameStarted = false
+  $start.classList.remove('hide')
+  $game.innerHTML = ''
+  $game.style.backgroundColor = '#ccc'
+  $timeHeader.classList.add('hide')
+  $resultHeader.classList.remove('hide')
+  setGameScore()
+  $gameTime.removeAttribute('disabled')
 }
