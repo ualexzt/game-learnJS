@@ -7,7 +7,8 @@ let score = 0;
 let isGameStarted = false
 let $timeHeader = document.querySelector('#time-header')
 let $resultHeader = document.querySelector('#result-header')
-let colors = ['red', 'blue', 'green', 'black', 'yellow', 'orange', 'gray']
+let colors = ['#4158D0', '#C850C0', '#FFCC70', '#8EC5FC', '#E0C3FC', '#6284FF', '#FF0000',
+  '#00DBDE', '#FBAB7E', '#85FFBD', '#8BC6EC', '#9599E2', '#FFDEE9', '#2AF598']
 
 $start.addEventListener('click', startGame)
 $game.addEventListener('click', hendleBoxClick)
@@ -63,7 +64,7 @@ function renderBox() {
   let maxLeft = gameSize.width - boxSize
   box.style.height = box.style.width = boxSize + 'px'
   box.style.position = 'absolute'
-  box.style.backgroundColor = colors[getRander(0, 6)]
+  box.style.backgroundColor = colors[getRander(0, colors.length)]
   box.style.top = getRander(0, maxTop) + 'px'
   box.style.left = getRander(0, maxLeft) + 'px'
   box.style.cursor = 'pointer'
